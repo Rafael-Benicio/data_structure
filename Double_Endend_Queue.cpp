@@ -1,95 +1,120 @@
 #include <stdio.h>
 #include <malloc.h>
 
-typedef struct{
-	int key;
-}Register;
+typedef int KEY_TYPE;
 
-typedef struct aux{
+class Register{
+public:
+	KEY_TYPE key;
+};
+
+
+class Element{
+public:
 	Register reg;
-	struct aux* before;
-	struct aux* next;
-}Element;
+	Element* before;
+	Element* next;
+};
 
-typedef struct{
+class Deque{
+public:
 	Element* head;
-}Deque;
 
-void inicialize(Deque *deque){
-	deque->head=(Element*)malloc(sizeof(Element));
-	
-	deque->head->next=deque->head;
-	deque->head->before=deque->head;
-}
-
-int lenght(Deque*deque){
-	Element* end=deque->head->next;
-	int size=0;
-
-	while (end!=deque->head){
-		size++;
-		end=end->next;
+	Deque(){
+		this->head=(Element*)malloc(sizeof(Element));
+		
+		this->head->next=this->head;
+		this->head->before=this->head;
 	}
 
-	return size;
+	int lenght(){
+		Element* end=this->head->next;
+		int size=0;
 
-};
+		while (end!=this->head){
+			size++;
+			end=end->next;
+		}
 
-bool isEmpty(Deque* deque){
-	return (deque->head==NULL) ? true: false;
-};
+		return size;
 
-void show(Deque *deque){
-	Element* end=deque->head->before;
+	};
 
-	printf("Start in end of Deque");
-	while(end!=deque->head){
-		printf("%i ",end->reg.key);
-		end=end->before;
+	bool isEmpty(){
+		return (this->head==NULL) ? true: false;
+	};
+
+	void show(){
+		Element* end=this->head->before;
+
+		printf("Start in end of Deque");
+		while(end!=this->head){
+			printf("\n%i",end->reg.key);
+			end=end->before;
+		}
+		printf("\n");
 	}
-	printf("\n");
-}
 
-bool insert(Deque* deque,Register reg){
-	Element* newElement=(Element*) malloc(sizeof(Element));
+	bool insert(KEY_TYPE reg){
+		Element* newElement=(Element*) malloc(sizeof(Element));
 
-	newElement->reg=reg;
-	newElement->next=deque->head;
-	newElement->before=deque->head->before;
-	deque->head->before=newElement;
-	newElement->before->next=newElement;
+		newElement->reg=Register{reg};
+		newElement->next=this->head;
+		newElement->before=this->head->before;
+		this->head->before=newElement;
+		newElement->before->next=newElement;
 
-	return true;
-}
+		return true;
+	}
 
-bool deleteElement(Deque *deque,Register *reg){
-	if (deque->head->next==deque->head) return false;
+	bool deleteElement(Register *reg){
+		if (this->head->next==this->head) return false;
 
-	Element* eraseElement=deque->head->next;
-	*reg=eraseElement->reg;
+		Element* eraseElement=this->head->next;
+		*reg=eraseElement->reg;
 
-	deque->head->next=eraseElement->next;
+		this->head->next=eraseElement->next;
 
-	free(eraseElement);
-	return true;
-}
-
-bool reinicialize(Deque *deque){
-	Element* end=deque->head->next;
-
-	while (end!=deque->head){
-		Element* eraseElement=end;
-		end=end->next;
 		free(eraseElement);
+		return true;
 	}
 
-	deque->head->next=deque->head;
-	deque->head->before=deque->head;
+	bool reinicialize(){
+		Element* end=this->head->next;
 
-	return true;
-}
+		while (end!=this->head){
+			Element* eraseElement=end;
+			end=end->next;
+			free(eraseElement);
+		}
+
+		this->head->next=this->head;
+		this->head->before=this->head;
+
+		return true;
+	}
+};
+
+
+
+
 
 int main(){
-	printf("oi mundo\n");
+	Deque novo_deque;
+
+	if (novo_deque.isEmpty()){
+		novo_deque.show();
+	}
+
+	novo_deque.insert(1);
+	novo_deque.insert(4);
+	novo_deque.insert(5);
+	novo_deque.insert(67);
+	novo_deque.show();
+	printf("%i : Lenght\n",novo_deque.lenght());
+	novo_deque.reinicialize();
+	printf("%i : Lenght\n",novo_deque.lenght());
+
+
 	return 0;
 }

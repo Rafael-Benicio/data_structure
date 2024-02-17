@@ -26,6 +26,8 @@ public:
   }
 
   bool insert(int line, int column, KEY_TYPE value) {
+    line--;
+    column--;
     // checa se esta dentro do range de possibilidades de insert
     if (line < 0 || line >= this->rows || column < 0 || column >= this->cols)
       return false;
@@ -76,6 +78,8 @@ public:
       for (int col = 0; col < this->cols; col++) {
         if (current != NULL)
           printf(" %i |", valueMatriz(row, col));
+        else
+          printf(" 0 |");
         current = current->next;
       }
       printf("\n");
@@ -85,12 +89,12 @@ public:
 
 int main() {
   Matriz my_matriz = Matriz(3, 2);
-  my_matriz.insert(0, 0, 1);
-  my_matriz.insert(1, 1, 0);
-  my_matriz.insert(0, 1, 1);
-  my_matriz.insert(1, 0, 0);
-  my_matriz.insert(2, 0, 1);
+  my_matriz.insert(1, 1, 1);
+  my_matriz.insert(2, 2, 1);
+  my_matriz.insert(1, 2, 0);
   my_matriz.insert(2, 1, 0);
+  my_matriz.insert(3, 1, 1);
+  my_matriz.insert(3, 2, 0);
   my_matriz.show();
   /* code */
   return 0;

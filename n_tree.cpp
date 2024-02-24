@@ -30,7 +30,7 @@ PONT criaNo(KEY_TYPE value) {
   PONT novo_no = (PONT)malloc(sizeof(NO));
   novo_no->chave = value;
   novo_no->primeiroFilho = NULL;
-  novo_no->ProximoIrmão  = NULL;
+  novo_no->ProximoIrmão = NULL;
   return novo_no;
 }
 
@@ -67,12 +67,12 @@ void showTree(PONT r) {
 
 int main() {
   PONT my_tree = inicializa(8);
-  adiciona(my_tree, 23,8);
-  adiciona(my_tree, 2,23);
-  adiciona(my_tree, 53,8);
-  adiciona(my_tree, 73,53);
-  adiciona(my_tree, 13,2);
-  adiciona(my_tree, 1,2);
+  adiciona(my_tree, 23, 8);
+  adiciona(my_tree, 2, 23);
+  adiciona(my_tree, 53, 8);
+  adiciona(my_tree, 73, 53);
+  adiciona(my_tree, 13, 2);
+  adiciona(my_tree, 1, 2);
   showTree(my_tree);
   return 0;
 }

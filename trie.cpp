@@ -63,15 +63,15 @@ bool busca(PONT raiz, char *chave) {
 int main() {
   PONT my_trie = inicializa();
 
-  char meu[]="meu";
-  char ovo[]="mau";
+  char meu[] = "meu";
+  char ovo[] = "mau";
 
   insert(my_trie, meu);
-  if (busca(my_trie,meu)){
+  if (busca(my_trie, meu)) {
     printf("Achou\n");
-  }  
+  }
 
-  if (!busca(my_trie,ovo)){
+  if (!busca(my_trie, ovo)) {
     printf("Não achou\n");
   }
   return 0;

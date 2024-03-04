@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define BRANCO 0
+#define AMARELO 1
+#define VERMELHO 2
+
 typedef int KEY_TYPE;
 
 typedef struct adjacencia {
@@ -63,6 +67,28 @@ void imprime(GRAFO *gr) {
       ad = ad->prox;
     }
     printf("\n");
+  }
+}
+
+void visitaP(GRAFO *g, int u, int *cor) {
+  cor[u] = AMARELO;
+  ADJACENCIA *v = g->adj[u].cap;
+  while (v) {
+    if (cor[v->vertice] == BRANCO)
+      visitaP(g, v->vertice, cor);
+    v = v->prox;
+  }
+  cor[u] = VERMELHO;
+}
+
+void profundidade(GRAFO *g) {
+  int cor[g->vertices];
+  int u;
+  for (u = 0; u < g->vertices; u++)
+    cor[u] = BRANCO;
+  for (u = 0; u < g->vertices; u++) {
+    if (cor[u] == BRANCO)
+      visitaP(g, u, cor);
   }
 }
 
